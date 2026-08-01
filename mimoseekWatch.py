@@ -22,6 +22,14 @@ def install_automatic_downloads(on_finished=None) -> None:
     download_dir.mkdir(parents=True, exist_ok=True)
 
     def on_download_starting(self, sender, args):
+        # WebView2 asks "allow multiple downloads?" per session the second time a
+        # download is started. In a hidden background window nobody can answer that
+        # prompt, so repeated 5-minute auto-exports stall with no file. Marking the
+        # event handled suppresses the prompt while keeping the batch download.
+        try:
+            args.Handled = True
+        except Exception:
+            pass
         original_name = Path(str(args.ResultFilePath)).name or "usage.zip"
         stamp = datetime.now().strftime("%Y%m%d-%H%M%S")
         target = download_dir / f"{stamp}-{original_name}"
