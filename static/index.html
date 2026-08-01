@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>mimoseekWatch · 本地模型账本</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">T</span>
+      <div><strong>TokenWatch</strong><span>API 用量监控</span></div>
+    </div>
+    <nav aria-label="主导航"><a href="#overview" aria-current="page">概览</a><a href="#ledger">请求记录</a></nav>
+    <div class="actions">
+      <span class="live"><i></i> 官方数据</span>
+      <button id="openSettings" class="button">设置</button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section id="overview" class="intro">
+      <div>
+        <p class="eyebrow">更新时间：<span id="asOf">正在读取</span></p>
+        <h1>用量概览</h1>
+      </div>
+      <p class="lede">查看 DeepSeek 和 MiMo 的 Token、费用与余额。</p>
+    </section>
+
+    <section class="meter-panel" aria-label="今日总览">
+      <div class="meter-heading">
+        <div><span>今日 Token 用量</span><strong id="todayTokens">—</strong></div>
+        <div><span>今日消费金额</span><strong id="todayCost">—</strong></div>
+        <div><span>缓存命中</span><strong id="todayCache">—</strong></div>
+        <div><span>请求数</span><strong id="todayRequests">—</strong></div>
+      </div>
+    </section>
+
+    <section class="provider-grid" aria-label="供应商状态">
+      <article class="provider" data-provider="deepseek">
+        <div class="provider-head">
+          <div><p>供应商</p><h2>DeepSeek</h2></div>
+          <span id="deepseekStatus" class="status">未配置</span>
+        </div>
+        <div class="balance-row">
+          <div><span>官方余额</span><strong id="deepseekBalance">—</strong><small id="deepseekBalanceMeta">等待刷新</small></div>
+          <div class="waterline"><span id="deepseekWater"></span></div>
+        </div>
+        <dl class="stats">
+          <div><dt>近30天 Token 用量</dt><dd id="deepseekTokens">0</dd></div>
+          <div><dt>近30天消费金额</dt><dd id="deepseekCost">¥0.0000</dd></div>
+          <div><dt>近30天缓存命中</dt><dd id="deepseekCache">—</dd></div>
+          <div><dt>请求数</dt><dd id="deepseekRequests">0</dd></div>
+        </dl>
+      </article>
+
+      <article class="provider" data-provider="mimo">
+        <div class="provider-head">
+          <div><p>供应商</p><h2>MiMo</h2></div>
+          <span id="mimoStatus" class="status">未配置</span>
+        </div>
+        <div class="balance-row">
+          <div><span>官方余额</span><strong id="mimoBalance">—</strong><small id="mimoBalanceMeta">暂未获取官方余额</small></div>
+          <div class="waterline"><span id="mimoWater"></span></div>
+        </div>
+        <dl class="stats">
+          <div><dt>近30天 Token 用量</dt><dd id="mimoTokens">0</dd></div>
+          <div><dt>近30天消费金额</dt><dd id="mimoCost">¥0.0000</dd></div>
+          <div><dt>近30天缓存命中</dt><dd id="mimoCache">—</dd></div>
+          <div><dt>请求数</dt><dd id="mimoRequests">0</dd></div>
+        </dl>
+      </article>
+    </section>
+
+    <section id="ledger" class="ledger" aria-labelledby="ledgerTitle">
+      <div class="section-head">
+        <div><h2 id="ledgerTitle">最近请求</h2></div>
+        <span id="unpricedNotice" class="notice" hidden>存在未定价模型</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>时间</th><th>通道 / 模型</th><th>输入</th><th>缓存</th><th>输出</th><th>费用</th><th>状态</th></tr></thead>
+          <tbody id="ledgerBody"><tr><td colspan="7" class="empty">还没有导入官方用量</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <footer><span>mimoseekWatch 1.0</span><span>数据仅保存在本机 · 来自官方接口与导出文件</span></footer>
+
+  <dialog id="settingsDialog">
+    <form id="settingsForm" method="dialog">
+      <div class="dialog-head"><div><p class="eyebrow">LOCAL SETTINGS</p><h2>账户设置</h2></div><button type="button" id="closeSettings" class="icon-button" aria-label="关闭">×</button></div>
+      <label>低余额告警线（元）<input id="warningBalance" name="warning_balance" type="number" min="0" step="0.01" required></label>
+      <div class="advanced-settings">
+        <div class="web-login">
+          <strong>网页登录</strong>
+          <p>DeepSeek 和 MiMo 的登录状态由 Windows WebView2 保存在本机，不需要复制 Cookie。登录成功后立即同步余额与用量，之后每 5 分钟后台更新。</p>
+          <div><button type="button" class="button secondary web-login-button" data-provider="deepseek">登录 DeepSeek</button><button type="button" class="button secondary web-login-button" data-provider="mimo">登录 MiMo</button></div>
+        </div>
+      </div>
+      <button class="button wide" type="submit">保存设置</button>
+    </form>
+  </dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script src="/static/app.js" defer></script>
+</body>
+</html>

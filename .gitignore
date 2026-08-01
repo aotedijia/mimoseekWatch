@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyd
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+
+# Build outputs
+build/
+dist/
+*.egg-info/
+*.spec.bak
+
+# Local application data and logs
+data/
+*.db
+*.db-shm
+*.db-wal
+*.log
+usage-sync/
+webview/
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+
+# Editors and OS metadata
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Codex/local work files
+.workbuddy/
