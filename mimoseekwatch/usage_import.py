@@ -89,9 +89,10 @@ def parse_usage_export(filename: str, data: bytes) -> list[dict]:
         "costs": defaultdict(Decimal),
     })
 
+    date_column = "utcdate", "date", "日期", "starttimeiso", "starttime", "开始时间", "起始时间"
     for content in amount_files:
         for row in _rows(content):
-            date = _date(_value(row, "utcdate", "date", "日期"))
+            date = _date(_value(row, *date_column))
             model = _model(_value(row, "model", "模型"))
             if not date or model == "unknown":
                 continue
@@ -115,7 +116,7 @@ def parse_usage_export(filename: str, data: bytes) -> list[dict]:
 
     for content in cost_files:
         for row in _rows(content):
-            date = _date(_value(row, "utcdate", "date", "日期"))
+            date = _date(_value(row, *date_column))
             model = _model(_value(row, "model", "模型"))
             if not date or model == "unknown":
                 continue
