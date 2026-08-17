@@ -1,6 +1,8 @@
 const $ = (id) => document.getElementById(id);
 let state = null;
 
+const esc = (value) => String(value ?? "").replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[ch]);
+
 const number = (value) => new Intl.NumberFormat("zh-CN", { notation: value >= 1_000_000 ? "compact" : "standard", maximumFractionDigits: 1 }).format(value || 0);
 const money = (value) => `¥${Number(value || 0).toFixed(value >= 100 ? 2 : 4)}`;
 const timeLabel = (iso) => iso ? new Intl.DateTimeFormat("zh-CN", { month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hour12: false }).format(new Date(iso)) : "—";
@@ -74,15 +76,19 @@ function renderBand() {
   $("tokenBand").innerHTML = total
     ? `<div class="deepseek" style="width:${ds / total * 100}%" title="DeepSeek ${number(ds)}"></div><div class="mimo" style="width:${mi / total * 100}%" title="MiMo ${number(mi)}"></div>`
     : '<div class="band-empty">等待第一笔请求</div>';
+  const dsShare = $("bandDeepseekShare");
+  if (dsShare) dsShare.textContent = total ? `${(ds / total * 100).toFixed(1)}%` : "—";
+  const miShare = $("bandMimoShare");
+  if (miShare) miShare.textContent = total ? `${(mi / total * 100).toFixed(1)}%` : "—";
 }
 
 function renderLedger() {
   const body = $("ledgerBody");
   if (!body) return;
   body.innerHTML = (state.recent || []).length ? state.recent.map((row) => `
-    <tr>
+    <tr data-provider="${esc(row.provider)}">
       <td>${usageDateLabel(row.created_at)}</td>
-      <td><span class="provider-label">${row.provider === "deepseek" ? "DeepSeek" : "MiMo"}</span><span class="model-label">${row.model}</span></td>
+      <td><span class="provider-label">${row.provider === "deepseek" ? "DeepSeek" : "MiMo"}</span><span class="model-label">${esc(row.model)}</span></td>
       <td>${number(row.input_tokens)}</td><td>${number(row.cached_tokens)}</td><td>${number(row.output_tokens)}</td>
       <td>${row.priced ? money(row.cost) : "待定价"}</td>
       <td class="${row.status_code < 400 ? "ok" : "bad"}">${row.status_code}</td>

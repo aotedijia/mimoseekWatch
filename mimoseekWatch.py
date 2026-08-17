@@ -661,10 +661,10 @@ def main() -> None:
         "mimoseekWatch · 本地模型账本",
         f"http://127.0.0.1:{port}",
         js_api=desktop_api,
-        width=820,
-        height=600,
-        min_size=(680, 480),
-        background_color="#f4f5f7",
+        width=960,
+        height=680,
+        min_size=(720, 520),
+        background_color="#f4f5f8",
     )
     deepseek_window = webview.create_window(
         "DeepSeek 登录与自动同步", "https://platform.deepseek.com/usage",
