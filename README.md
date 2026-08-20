@@ -1,22 +1,19 @@
 <p align="center">
-  <img src="static/mimoseekWatch-icon-128.png" alt="mimoseekWatch icon" width="96" height="96">
+  <img src="static/mimoseekWatch-icon-128.png" alt="mimoseekWatch" width="80" height="80">
 </p>
 
 <h1 align="center">mimoseekWatch</h1>
 
 <p align="center">
-  <strong>DeepSeek / MiMo API usage dashboard for Windows</strong><br>
-  <em>Windows 本地 DeepSeek / MiMo 用量看板</em>
+  <strong>DeepSeek / MiMo API 用量看板</strong><br>
+  <sub>Windows 本地运行 · WebView2 自动同步 · 数据仅存本机</sub>
 </p>
 
 <p align="center">
-  <img alt="Platform" src="https://img.shields.io/badge/platform-Windows%2010%20%7C%2011-0078D4?logo=windows11">
-  &nbsp;
-  <img alt="Python" src="https://img.shields.io/badge/python-3.11%2B-3776AB?logo=python&logoColor=white">
-  &nbsp;
-  <img alt="Runtime" src="https://img.shields.io/badge/runtime-WebView2-0F7EBF?logo=microsoftedge&logoColor=white">
-  &nbsp;
-  <img alt="License" src="https://img.shields.io/badge/license-MIT-3DA639">
+  <img src="https://img.shields.io/badge/Windows-10%20%7C%2011-0078D4?logo=windows11&logoColor=fff" alt="Windows">&ensp;
+  <img src="https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=fff" alt="Python">&ensp;
+  <img src="https://img.shields.io/badge/WebView2-0F7EBF?logo=microsoftedge&logoColor=fff" alt="WebView2">&ensp;
+  <img src="https://img.shields.io/badge/License-MIT-3DA639" alt="MIT License">
 </p>
 
 <p align="center">
@@ -27,59 +24,58 @@
 
 ## 中文
 
-一个运行在 Windows 本地的 DeepSeek / Xiaomi MiMo 用量看板。
+mimoseekWatch 使用内置 WebView2 保存网页登录状态，自动读取 DeepSeek 和 Xiaomi MiMo 的**官方余额与用量数据**。
 
-> mimoseekWatch 使用内置 WebView2 保存网页登录状态，自动读取官方余额和用量数据。它**不代理 API 请求**、**不要求填写 API Key**，也**不会根据公开价格自行估算费用**。
+> **不代理 API 请求 · 不要求填写 API Key · 不根据公开价格估算费用**
 >
-> 应用左上角保留 `TokenWatch` 作为界面品牌，程序名称和可执行文件名为 `mimoseekWatch`。
+> 应用界面品牌为 `TokenWatch`，程序名与可执行文件名为 `mimoseekWatch`。
 
-### 📊 功能特性
+### 功能一览
 
-- **官方余额** — 显示 DeepSeek 与 MiMo 官方账户余额
-- **30 天汇总** — 汇总最近 30 天 Token 用量、官方消费金额、缓存命中率和请求数
-- **今日总览** — 当天两家平台合计的 Token、消费金额、缓存命中率和请求数
-- **用量明细** — 按日期展示两家平台的用量明细
-- **自动同步** — 首次登录后保存 WebView2 会话，启动时自动同步，之后每 5 分钟一次
-- **仅存本机** — 所有统计数据和登录会话仅保存在本地
+| | 功能 | 说明 |
+| :--- | :--- | :--- |
+| 💰 | 官方余额 | 显示 DeepSeek 与 MiMo 官方账户余额 |
+| 📈 | 30 天汇总 | 最近 30 天 Token 用量、消费金额、缓存命中率、请求数 |
+| ⚡ | 今日总览 | 当天两家平台合计的 Token、消费、缓存命中与请求数 |
+| 📋 | 用量明细 | 按日期展示两家平台的用量明细 |
+| 🔄 | 自动同步 | 首次登录后保存会话，启动时同步，之后每 5 分钟一次 |
+| 🔒 | 仅存本机 | 所有统计数据和登录会话只保存在本地 |
 
-### 📡 数据来源
+### 数据来源
 
-#### DeepSeek
+**DeepSeek**
 
 | 数据 | 获取方式 |
 | :--- | :--- |
-| 余额 | 通过已登录的 DeepSeek WebView 会话读取官方账户接口 |
-| 用量 | 后台自动打开官方 Usage 页面，导出并解析官方最近 30 天 ZIP/CSV |
+| 余额 | 通过已登录的 WebView 会话读取官方账户接口 |
+| 用量 | 后台自动打开官方 Usage 页面，导出并解析最近 30 天 ZIP/CSV |
 | 消费金额 | 以官方导出文件为准，不在本地重新计价 |
 
-#### Xiaomi MiMo
+**Xiaomi MiMo**
 
 | 数据 | 获取方式 |
 | :--- | :--- |
-| 余额 | 通过已登录的 MiMo WebView 会话读取官方余额接口 |
+| 余额 | 通过已登录的 WebView 会话读取官方余额接口 |
 | 用量 | 读取本月和上月官方账单明细，合并后筛选最近 30 天 |
 | 缓存命中率 | 按 `缓存输入 Token / 总输入 Token` 计算 |
 
-> ℹ️ MiMo 日数据会在次日 07:00 UTC 完成最终校对，因此当天数据可能继续变化。
+> ℹ️ MiMo 日数据会在次日 07:00 UTC 完成最终校对，当天数据可能继续变化。
 
-### 📋 系统要求
+### 快速开始
 
-| 项目 | 要求 |
-| :--- | :--- |
-| 操作系统 | Windows 10 或 Windows 11 |
-| 运行时 | Microsoft Edge WebView2 Runtime |
-| 从源码运行 | Python 3.11 或更高版本 |
-
-### 🚀 快速开始
+**环境要求**：Windows 10 / 11 · Microsoft Edge WebView2 Runtime（源码运行需 Python 3.11+）
 
 1. 从 GitHub Releases 下载 `mimoseekWatch.exe`
-2. 双击运行，打开右上角「**设置**」
-3. 分别点击「**登录 DeepSeek**」和「**登录 MiMo**」，在弹出的官方页面完成登录
-4. 登录窗口可以关闭，主界面会在后台自动同步余额和用量，之后每 5 分钟更新一次
+2. 双击运行，打开右上角「设置」
+3. 点击「登录 DeepSeek」「登录 MiMo」，在弹出的官方页面完成登录
+4. 登录窗口可以关闭，主界面会在后台自动同步，之后每 5 分钟更新一次
 
-> ⚠️ 验证码、短信验证和二次验证必须由用户在官方页面手动完成。
+> ⚠️ 验证码、短信验证和二次验证必须在官方页面手动完成。
 
-### 🛠️ 从源码运行
+### 开发指南
+
+<details>
+<summary><b>从源码运行</b></summary>
 
 ```powershell
 git clone <your-repository-url>
@@ -87,10 +83,7 @@ cd mimoseekWatch
 powershell -ExecutionPolicy Bypass -File .\start.ps1
 ```
 
-`start.ps1` 会创建 `.venv`、安装运行依赖并启动桌面程序。
-
-<details>
-<summary>手动运行</summary>
+`start.ps1` 会创建 `.venv`、安装依赖并启动桌面程序。也可以手动运行：
 
 ```powershell
 python -m venv .venv
@@ -100,14 +93,18 @@ python -m venv .venv
 
 </details>
 
-### ✅ 测试
+<details>
+<summary><b>运行测试</b></summary>
 
 ```powershell
 .\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
 .\.venv\Scripts\python.exe -m pytest -q
 ```
 
-### 📦 打包 Windows EXE
+</details>
+
+<details>
+<summary><b>打包 Windows EXE</b></summary>
 
 ```powershell
 .\.venv\Scripts\python.exe -m PyInstaller --noconfirm .\mimoseekWatch.spec
@@ -115,33 +112,10 @@ python -m venv .venv
 
 生成文件位于 `dist\mimoseekWatch.exe`。
 
-### 🔒 本地数据与隐私
-
-默认数据目录：
-
-```text
-%LOCALAPPDATA%\mimoseekWatch
-```
-
-| 目录 / 文件 | 内容 |
-| :--- | :--- |
-| `mimoseekwatch.db` | 保存官方同步得到的余额、用量和本地设置 |
-| `webview\` | 保存 WebView2 登录会话和 Cookie |
-| `usage-sync\` | 保存 DeepSeek 后台自动下载的官方用量文件 |
-
-Cookie 不会写入 SQLite 数据库，也不应提交到 Git。项目的 `.gitignore` 已排除数据库、日志、WebView 数据、虚拟环境和构建产物。
-
-<details>
-<summary>自定义数据位置（环境变量）</summary>
-
-| 环境变量 | 作用 |
-| :--- | :--- |
-| `MIMOSEEKWATCH_DATA_DIR` | 本地数据目录 |
-| `MIMOSEEKWATCH_DB` | SQLite 数据库文件路径 |
-
 </details>
 
-### 📁 项目结构
+<details>
+<summary><b>项目结构</b></summary>
 
 | 路径 | 说明 |
 | :--- | :--- |
@@ -154,14 +128,38 @@ Cookie 不会写入 SQLite 数据库，也不应提交到 Git。项目的 `.giti
 | `requirements.txt` | 运行依赖 |
 | `requirements-dev.txt` | 测试与打包依赖 |
 
-### ⚠️ 已知限制
+</details>
 
-- 本项目依赖 DeepSeek 和 MiMo 网页当前使用的接口及页面结构；平台更新后可能需要同步调整
+### 本地数据与隐私
+
+默认数据目录：`%LOCALAPPDATA%\mimoseekWatch`
+
+| 目录 / 文件 | 内容 |
+| :--- | :--- |
+| `mimoseekwatch.db` | 官方同步的余额、用量和本地设置 |
+| `webview\` | WebView2 登录会话和 Cookie |
+| `usage-sync\` | DeepSeek 后台自动下载的官方用量文件 |
+
+Cookie 不会写入 SQLite 数据库，也不应提交到 Git。`.gitignore` 已排除数据库、日志、WebView 数据、虚拟环境和构建产物。
+
+<details>
+<summary><b>自定义数据位置</b></summary>
+
+| 环境变量 | 作用 |
+| :--- | :--- |
+| `MIMOSEEKWATCH_DATA_DIR` | 本地数据目录 |
+| `MIMOSEEKWATCH_DB` | SQLite 数据库文件路径 |
+
+</details>
+
+### 已知限制
+
+- 依赖 DeepSeek 和 MiMo 网页当前的接口及页面结构，平台更新后可能需要同步调整
 - DeepSeek 官方导出、MiMo 账单和余额接口可能存在平台侧延迟
 - 登录 Cookie 失效后，需要重新打开登录窗口完成登录
 - 本项目与 DeepSeek、Xiaomi 或 MiMo 官方无隶属关系
 
-### 📄 许可证
+### 许可证
 
 本项目基于 [MIT License](LICENSE) 开源。
 
@@ -169,59 +167,58 @@ Cookie 不会写入 SQLite 数据库，也不应提交到 Git。项目的 `.giti
 
 ## English
 
-A local DeepSeek / Xiaomi MiMo usage dashboard for Windows.
+mimoseekWatch uses a built-in WebView2 to preserve web login sessions and automatically reads **official balance and usage data** from DeepSeek and Xiaomi MiMo.
 
-> mimoseekWatch uses a built-in WebView2 to preserve web login sessions and automatically reads official balance and usage data. It **does not proxy API requests**, **does not require an API Key**, and **does not estimate costs based on public pricing**.
+> **No API proxying · No API Key required · No cost estimates from public pricing**
 >
-> The in-app header retains `TokenWatch` as the UI brand; the program name and executable are `mimoseekWatch`.
+> The in-app UI brand is `TokenWatch`; the program name and executable are `mimoseekWatch`.
 
-### 📊 Features
+### Features
 
-- **Official balances** — displays official account balances for DeepSeek and MiMo
-- **30-day summary** — summarizes the last 30 days of token usage, official spending, cache hit ratio, and request count
-- **Today at a glance** — today's combined tokens, spending, cache hit ratio, and request count across both providers
-- **Daily details** — lists daily usage details for both providers
-- **Auto sync** — after the first login, the WebView2 session is saved; the app auto-syncs on startup and every 5 minutes thereafter
-- **Local only** — all statistics and login sessions are stored locally
+| | Feature | Description |
+| :--- | :--- | :--- |
+| 💰 | Balances | Official account balances for DeepSeek and MiMo |
+| 📈 | 30-day summary | Token usage, spending, cache hit ratio, and request count over the last 30 days |
+| ⚡ | Today at a glance | Combined tokens, spending, cache hit ratio, and requests for both providers today |
+| 📋 | Daily details | Daily usage breakdown for both providers |
+| 🔄 | Auto sync | Sessions saved after first login; syncs on startup, then every 5 minutes |
+| 🔒 | Local only | All statistics and login sessions stay on your machine |
 
-### 📡 Data Sources
+### Data Sources
 
-#### DeepSeek
-
-| Data | How it is read |
-| :--- | :--- |
-| Balance | official account API via the logged-in DeepSeek WebView session |
-| Usage | the background automatically opens the official Usage page, exports and parses the latest 30-day ZIP/CSV |
-| Spending | comes from the official export and is never re-priced locally |
-
-#### Xiaomi MiMo
+**DeepSeek**
 
 | Data | How it is read |
 | :--- | :--- |
-| Balance | official balance API via the logged-in MiMo WebView session |
-| Usage | current and previous month's billing details, filtered to the last 30 days |
-| Cache hit ratio | calculated as `cached input tokens / total input tokens` |
+| Balance | Official account API via the logged-in WebView session |
+| Usage | Background export and parsing of the latest 30-day ZIP/CSV from the Usage page |
+| Spending | Taken from the official export; never re-priced locally |
+
+**Xiaomi MiMo**
+
+| Data | How it is read |
+| :--- | :--- |
+| Balance | Official balance API via the logged-in WebView session |
+| Usage | Current and previous month's billing details, filtered to the last 30 days |
+| Cache hit ratio | `cached input tokens / total input tokens` |
 
 > ℹ️ MiMo daily data is finalized at 07:00 UTC the next day, so today's figures may still change.
 
-### 📋 System Requirements
+### Quick Start
 
-| Item | Requirement |
-| :--- | :--- |
-| OS | Windows 10 or Windows 11 |
-| Runtime | Microsoft Edge WebView2 Runtime |
-| From source | Python 3.11 or later |
-
-### 🚀 Quick Start
+**Requirements**: Windows 10 / 11 · Microsoft Edge WebView2 Runtime (Python 3.11+ from source)
 
 1. Download `mimoseekWatch.exe` from GitHub Releases
 2. Double-click to run, then open **Settings** in the top-right corner
-3. Click **Login DeepSeek** and **Login MiMo** to complete login in the pop-up windows
-4. The login windows can be closed; the dashboard syncs balances and usage in the background, updating every 5 minutes
+3. Click **Login DeepSeek** and **Login MiMo**, and complete login in the pop-up windows
+4. The login windows can be closed; the dashboard syncs in the background every 5 minutes
 
 > ⚠️ CAPTCHAs, SMS verification, and two-factor authentication must be completed manually on the official pages.
 
-### 🛠️ Running from Source
+### Development
+
+<details>
+<summary><b>Running from source</b></summary>
 
 ```powershell
 git clone <your-repository-url>
@@ -229,10 +226,7 @@ cd mimoseekWatch
 powershell -ExecutionPolicy Bypass -File .\start.ps1
 ```
 
-`start.ps1` creates `.venv`, installs dependencies, and launches the desktop app.
-
-<details>
-<summary>Manual setup</summary>
+`start.ps1` creates `.venv`, installs dependencies, and launches the desktop app. Manual alternative:
 
 ```powershell
 python -m venv .venv
@@ -242,14 +236,18 @@ python -m venv .venv
 
 </details>
 
-### ✅ Testing
+<details>
+<summary><b>Running tests</b></summary>
 
 ```powershell
 .\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
 .\.venv\Scripts\python.exe -m pytest -q
 ```
 
-### 📦 Building the Windows EXE
+</details>
+
+<details>
+<summary><b>Building the Windows EXE</b></summary>
 
 ```powershell
 .\.venv\Scripts\python.exe -m PyInstaller --noconfirm .\mimoseekWatch.spec
@@ -257,33 +255,10 @@ python -m venv .venv
 
 Output: `dist\mimoseekWatch.exe`
 
-### 🔒 Local Data & Privacy
-
-Default data directory:
-
-```text
-%LOCALAPPDATA%\mimoseekWatch
-```
-
-| Path | Contents |
-| :--- | :--- |
-| `mimoseekwatch.db` | balances, usage, and local settings synced from official sources |
-| `webview\` | WebView2 login sessions and cookies |
-| `usage-sync\` | DeepSeek official usage files downloaded in the background |
-
-Cookies are not stored in the SQLite database and should not be committed to Git. The `.gitignore` already excludes databases, logs, WebView data, virtual environments, and build artifacts.
-
-<details>
-<summary>Custom data locations (environment variables)</summary>
-
-| Variable | Purpose |
-| :--- | :--- |
-| `MIMOSEEKWATCH_DATA_DIR` | local data directory |
-| `MIMOSEEKWATCH_DB` | SQLite database file path |
-
 </details>
 
-### 📁 Project Structure
+<details>
+<summary><b>Project structure</b></summary>
 
 | Path | Description |
 | :--- | :--- |
@@ -296,16 +271,40 @@ Cookies are not stored in the SQLite database and should not be committed to Git
 | `requirements.txt` | Runtime dependencies |
 | `requirements-dev.txt` | Test & build dependencies |
 
-### ⚠️ Known Limitations
+</details>
 
-- This project depends on the current DeepSeek and MiMo web interfaces and page structures; platform updates may require corresponding changes
-- Official DeepSeek exports, MiMo billing, and balance APIs may have platform-side delays
-- When login cookies expire, you must re-open the login window to log in again
-- This project is not affiliated with DeepSeek, Xiaomi, or MiMo
+### Local Data & Privacy
 
-### 📄 License
+Default data directory: `%LOCALAPPDATA%\mimoseekWatch`
 
-This project is licensed under the [MIT License](LICENSE).
+| Path | Contents |
+| :--- | :--- |
+| `mimoseekwatch.db` | Balances, usage, and local settings synced from official sources |
+| `webview\` | WebView2 login sessions and cookies |
+| `usage-sync\` | DeepSeek official usage files downloaded in the background |
+
+Cookies are not stored in the SQLite database and should not be committed to Git. The `.gitignore` already excludes databases, logs, WebView data, virtual environments, and build artifacts.
+
+<details>
+<summary><b>Custom data locations</b></summary>
+
+| Variable | Purpose |
+| :--- | :--- |
+| `MIMOSEEKWATCH_DATA_DIR` | Local data directory |
+| `MIMOSEEKWATCH_DB` | SQLite database file path |
+
+</details>
+
+### Known Limitations
+
+- Depends on the current DeepSeek and MiMo web interfaces; platform updates may require changes
+- Official exports, billing, and balance APIs may have platform-side delays
+- When login cookies expire, you must re-open the login window
+- Not affiliated with DeepSeek, Xiaomi, or MiMo
+
+### License
+
+Released under the [MIT License](LICENSE).
 
 ---
 
